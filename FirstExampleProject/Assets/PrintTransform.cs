@@ -14,8 +14,11 @@ public class PrintTransform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        Matrix4x4 toParent = this.transform.parent.worldToLocalMatrix * transform.localToWorldMatrix;
-        text.text = toParent + "";
+
+        //Matrix4x4 toParent = this.transform.parent.worldToLocalMatrix * transform.localToWorldMatrix;
+        //text.text = toParent + "";
+        text.text = transform.worldToLocalMatrix.ToString();
+        
+
     }
 }
