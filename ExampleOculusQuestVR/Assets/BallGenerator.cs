@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using OVR;
 public class BallGenerator : MonoBehaviour
 {
     public GameObject ballPrefab;
@@ -15,7 +15,7 @@ public class BallGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) || OVRInput.GetDown(OVRInput.RawButton.A))
 		{
             Instantiate<GameObject>(
                 ballPrefab, 
