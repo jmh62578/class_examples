@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 4447287811298753807}
   - component: {fileID: 4447287811298753792}
   - component: {fileID: 4447287811298753803}
+  - component: {fileID: 1885262421228666463}
   m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
@@ -157,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 4447287811298753793}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 6.36, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4447287811137388533}
   m_Father: {fileID: 0}
@@ -253,3 +254,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audio: {fileID: 4447287811137388534}
   standardBounce: {fileID: 8300000, guid: c12329057c3e9b8458d2fd84c65dc6b1, type: 3}
+--- !u!114 &1885262421228666463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4447287811298753793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5a0350cd254cf49a615ee54f1a3ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
