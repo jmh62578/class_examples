@@ -11,6 +11,8 @@ public class Grabbable : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.maxAngularVelocity = Mathf.Infinity;
+        
     }
 
     // Update is called once per frame
@@ -19,12 +21,19 @@ public class Grabbable : MonoBehaviour
         
     }
 
+    public virtual void handleTrigger(float v)
+	{
+
+	}
+
     public void grab(Transform by)
 	{
+        rb.useGravity = false;
         follow = by;
 	}
     public void release()
 	{
+        rb.useGravity = true;
         follow = null;
 	}
 	private void FixedUpdate()

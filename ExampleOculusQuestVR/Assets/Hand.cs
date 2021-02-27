@@ -42,7 +42,17 @@ public class Hand : MonoBehaviour
             grabbed = null;
             StartCoroutine(setHandToSolid(1));
 		}
+        float indexTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, myHand);
+        if(grabbed != null)
+		{
+            grabbed.handleTrigger(indexTrigger);
+		}
     }
+
+    public float getSpeedControl()
+	{
+        return OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, myHand).y;
+	}
 
     IEnumerator setHandToSolid(float t)
 	{
@@ -76,7 +86,7 @@ public class Hand : MonoBehaviour
 		{
             grabbed = g;
             handGraphics.SetActive(false);
-            g.grab(this.transform);
+            g.grab(this.follow);
 		}
 	}
 
