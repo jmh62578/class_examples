@@ -14,9 +14,16 @@ public class Hand : MonoBehaviour
     public float gripAtPercentage;
     public float releaseAtPercentage;
     public GameObject handGraphics;
+    public bool teleporterActive;
+    public Player player;
+    public Vector3 teleportLocation;
+    public Vector3 teleportNormal;
+    public GameObject laser;
     // Start is called before the first frame update
     void Awake()
     {
+        teleporterActive = false;
+        laser.SetActive(false);
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = Mathf.Infinity;
         if(side == HAND_SIDE.LEFT)
@@ -46,6 +53,34 @@ public class Hand : MonoBehaviour
         if(grabbed != null)
 		{
             grabbed.handleTrigger(indexTrigger);
+		}
+
+        Vector2 thumbstick = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, myHand);
+
+        if(thumbstick.y > .5f)
+		{
+            //draw teleporter line
+            laser.SetActive(true);
+            RaycastHit[] hits = Physics.RaycastAll(laser.transform.position, laser.transform.forward, Mathf.Infinity);
+            if(hits.Length > 0)
+			{
+                
+                teleportLocation = hits[0].point;
+                teleportNormal = hits[0].normal;
+			}
+            teleporterActive = true;
+		}
+		else
+		{
+			if (teleporterActive)
+			{
+                //ask to do the teleportation
+                if (teleportNormal.y > .5f)
+                {
+                    player.teleport(teleportLocation);
+                }
+                teleporterActive = false;
+			}
 		}
     }
 
