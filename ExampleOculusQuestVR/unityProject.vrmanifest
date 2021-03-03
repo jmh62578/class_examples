@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.exampleoculusquestvr.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\git_repo\\vr_class_2021_examples\\ExampleOculusQuestVR\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "ExampleOculusQuestVR [Testing]"
+        }
+      }
+    }
+  ]
+}

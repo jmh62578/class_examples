@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player.teleport(startLocation.position);
-        StartCoroutine(RotateOften(1));
+        //StartCoroutine(RotateOften(1));
     }
 
     // Update is called once per frame
