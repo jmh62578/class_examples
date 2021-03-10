@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using OVR;
 [RequireComponent(typeof(Rigidbody))]
-public class Hand : MonoBehaviour
+public class Hand : WorldMouse
 {
     public Transform follow;
     Rigidbody rb;
@@ -46,8 +46,37 @@ public class Hand : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        worldRayDistance = Mathf.Infinity;
+        RaycastHit hit;
+        if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit))
+        {
+            worldRayDistance = hit.distance;
+            worldHitPoint = hit.point;
+            textureHitPoint = hit.textureCoord;
+            hitCollider = hit.collider;
+            if (hit.collider.attachedRigidbody != null)
+            {
+                hitGo = hit.collider.attachedRigidbody.gameObject;
+            }
+            else
+            {
+                hitGo = hit.transform.gameObject;
+            }
+        }
+        else
+        {
+            hitGo = null;
+        }
+        
+        float laserDistance = Mathf.Min(worldRayDistance, rayDistance);
+        if(laserDistance < Mathf.Infinity)
+		{
+            laser.SetActive(true);
+		}
+        laser.transform.localScale = new Vector3(1, 1, laserDistance);
+
         float handTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, myHand);
         if (handTrigger < releaseAtPercentage && grabbed != null)
 		{
@@ -185,6 +214,16 @@ public class Hand : MonoBehaviour
             g.grab(this.follow);
 		}
 	}
+
+    public override bool pressDown()
+    {
+        return OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, myHand);
+
+    }
+    public override bool pressUp()
+    {
+        return OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, myHand);
+    }
 
 
 }

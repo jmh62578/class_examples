@@ -13,16 +13,21 @@ public class BallGenerator : MonoBehaviour
         
     }
 
+    public void drop_ball()
+	{
+        Instantiate<GameObject>(
+                ballPrefab,
+                this.transform.position,
+                this.transform.rotation,
+                this.transform);
+    }
+
     // Update is called once per frame
     void Update()
     {
 		if (Input.GetKeyDown(KeyCode.Space) || OVRInput.GetDown(OVRInput.RawButton.A))
 		{
-            Instantiate<GameObject>(
-                ballPrefab, 
-                this.transform.position, 
-                this.transform.rotation, 
-                this.transform);
+            drop_ball();
 
 
 		}

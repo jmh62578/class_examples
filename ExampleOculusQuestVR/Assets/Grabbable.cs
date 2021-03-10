@@ -5,8 +5,8 @@ using OVR;
 [RequireComponent(typeof(Rigidbody))]
 public class Grabbable : MonoBehaviour
 {
-    Transform follow;
-    Rigidbody rb;
+    protected Transform follow;
+    protected Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
