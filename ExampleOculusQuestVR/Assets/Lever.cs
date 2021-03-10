@@ -14,9 +14,10 @@ public class Lever : Grabbable
     public Action leverPulled = delegate { };
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         leverPulled += generator.drop_ball;
+        base.Start();
     }
 
     // Update is called once per frame
@@ -29,8 +30,9 @@ public class Lever : Grabbable
 	{
 
         if(follow != null){
-            Logger.log("following lever");
-            Vector3 force = (follow.position - handleTop.position);
+            
+            
+            Vector3 force = 1000*(follow.position - handleTop.position);
             rb.AddForceAtPosition(force,handleTop.position);
         }
 

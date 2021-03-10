@@ -8,7 +8,7 @@ public class Grabbable : MonoBehaviour
     protected Transform follow;
     protected Rigidbody rb;
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = Mathf.Infinity;
@@ -28,6 +28,7 @@ public class Grabbable : MonoBehaviour
 
     public virtual void grab(Transform by)
 	{
+        
         rb.useGravity = false;
         follow = by;
 	}
