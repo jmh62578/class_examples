@@ -205,13 +205,23 @@ public class Hand : WorldMouse
 	private void OnTriggerStay(Collider other)
 	{
         float handTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger,myHand);
-        Grabbable g = other.GetComponent<Grabbable>();
+        
+        Rigidbody otherRB = other.attachedRigidbody;
+        if(otherRB == null){
+            return;
+        }
+        
+        Grabbable g = otherRB.GetComponent<Grabbable>();
+
 		if (g == null) { return; } //we know it's a grabbable
+        
         if(handTrigger > gripAtPercentage && grabbed == null)
 		{
             grabbed = g;
             handGraphics.SetActive(false);
+            Logger.log("grabbed "+this.follow.name);
             g.grab(this.follow);
+            
 		}
 	}
 

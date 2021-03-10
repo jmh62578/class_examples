@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class Lever : MonoBehaviour
+public class Lever : Grabbable
 {
     public float activateDegree;
 
     public bool isActive;
+
+    public Transform handleTop;
 
     public BallGenerator generator;
     public Action leverPulled = delegate { };
@@ -25,11 +27,19 @@ public class Lever : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+
+        if(follow != null){
+            Logger.log("following lever");
+            Vector3 force = (follow.position - handleTop.position);
+            rb.AddForceAtPosition(force,handleTop.position);
+        }
+
+
         float currentValue = this.GetComponent<HingeJoint>().angle;
         
         if(currentValue < activateDegree && !isActive)
 		{
-            Debug.Log("dropping ball");
+            Logger.log("dropping ball");
             //activate
             leverPulled();
             isActive = true;

@@ -26,12 +26,12 @@ public class Grabbable : MonoBehaviour
 
 	}
 
-    public void grab(Transform by)
+    public virtual void grab(Transform by)
 	{
         rb.useGravity = false;
         follow = by;
 	}
-    public void release()
+    public virtual void release()
 	{
         rb.useGravity = true;
         follow = null;
