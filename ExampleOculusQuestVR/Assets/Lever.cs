@@ -25,7 +25,8 @@ public class Lever : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-        float currentValue = this.transform.localRotation.eulerAngles.x;
+        float currentValue = this.GetComponent<HingeJoint>().angle;
+        
         if(currentValue < activateDegree && !isActive)
 		{
             Debug.Log("dropping ball");
