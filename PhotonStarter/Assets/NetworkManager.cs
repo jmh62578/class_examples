@@ -6,12 +6,15 @@ using Photon.Realtime;
 public class NetworkManager : MonoBehaviourPunCallbacks,ILobbyCallbacks
 {
 
+	
 	public GameObject roomUI;
 	private void Awake()
 	{
         Object.DontDestroyOnLoad(this);
         Debug.Log("Connecting to Master");
         PhotonNetwork.ConnectUsingSettings();
+		PhotonNetwork.SendRate = 60;
+		PhotonNetwork.SerializationRate =5;
 	}
 
     public override void OnConnectedToMaster()
@@ -56,6 +59,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks,ILobbyCallbacks
 	public override void OnJoinedRoom()
 	{
 		Debug.Log("Joined Room");
+		PhotonNetwork.Instantiate("Player",Vector3.zero,Quaternion.identity);
 	}
 	// Start is called before the first frame update
 	void Start()
