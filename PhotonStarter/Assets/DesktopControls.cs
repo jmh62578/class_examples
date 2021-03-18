@@ -15,10 +15,11 @@ public class DesktopControls: MonoBehaviour
     void Update()
     {
         Vector3 mousePos = Input.mousePosition;
-        if(Input.GetMouseButtonDown(0)){
-            Camera cam = GetComponent<Camera>();
+        Camera cam = GetComponent<Camera>();
             
             Ray r = cam.ScreenPointToRay(mousePos);
+        if(Input.GetMouseButtonDown(0)){
+            
             RaycastHit[] hits = Physics.RaycastAll(r,Mathf.Infinity);
             if(hits.Length > 0){
                 RaycastHit hit = hits[0];
@@ -30,8 +31,7 @@ public class DesktopControls: MonoBehaviour
                 grabbed = hit.transform;
             }
         }else if(Input.GetMouseButtonDown(1)){
-            Camera cam = GetComponent<Camera>();
-            Ray r = cam.ScreenPointToRay(mousePos);
+            
             RaycastHit[] hits = Physics.RaycastAll(r,Mathf.Infinity);
             if(hits.Length > 0){
                 RaycastHit hit = hits[0];
@@ -45,7 +45,13 @@ public class DesktopControls: MonoBehaviour
         }
         if(grabbed != null){
             //make the object follow the mouse
-            grabbed.position = mousePos/1000.0f;
+            Plane p = new Plane(this.transform.forward,grabbed.position);
+            float d;
+            p.Raycast(r,out d);
+            grabbed.position = r.origin + r.direction*d;
+            
+
+            
         }
         if(!Input.GetMouseButton(0)){
             grabbed = null;
