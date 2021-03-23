@@ -23,22 +23,32 @@ public class DesktopControls: MonoBehaviour
             RaycastHit[] hits = Physics.RaycastAll(r,Mathf.Infinity);
             if(hits.Length > 0){
                 RaycastHit hit = hits[0];
-                PhotonView pv = hit.transform.GetComponent<PhotonView>();
-                if(pv != null && !pv.IsMine){
-                    pv.TransferOwnership(PhotonNetwork.LocalPlayer);
-                    
+                Rigidbody rb = hit.rigidbody;
+                if (rb != null)
+                {
+                    PhotonView pv = rb.transform.GetComponent<PhotonView>();
+                    if (pv != null && !pv.IsMine)
+                    {
+                        pv.TransferOwnership(PhotonNetwork.LocalPlayer);
+
+                    }
+                    grabbed = hit.transform;
                 }
-                grabbed = hit.transform;
             }
         }else if(Input.GetMouseButtonDown(1)){
             
             RaycastHit[] hits = Physics.RaycastAll(r,Mathf.Infinity);
             if(hits.Length > 0){
                 RaycastHit hit = hits[0];
-                PhotonView pv = hit.transform.GetComponent<PhotonView>();
-                if(pv != null){
-                    pv.RPC("rpcTakeDamage",RpcTarget.All,10.0f);;
-                    Debug.Log("Sent damage message");
+                Rigidbody rb = hit.rigidbody;
+                if (rb != null)
+                {
+                    PhotonView pv = rb.transform.GetComponent<PhotonView>();
+                    if (pv != null)
+                    {
+                        pv.RPC("rpcTakeDamage", RpcTarget.All, 10.0f); ;
+                        Debug.Log("Sent damage message");
+                    }
                 }
 
             }
