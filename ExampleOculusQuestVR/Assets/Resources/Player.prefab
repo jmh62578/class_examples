@@ -639,8 +639,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54d51deacfd45d44bb0083041d87472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkPosition: {x: 0, y: 0, z: 0}
-  networkRotation: {x: 0, y: 0, z: 0, w: 0}
+  headPosition: {x: 0, y: 0, z: 0}
+  headRotation: {x: 0, y: 0, z: 0, w: 0}
+  leftHandPosition: {x: 0, y: 0, z: 0}
+  leftHandRotation: {x: 0, y: 0, z: 0, w: 0}
+  rightHandPosition: {x: 0, y: 0, z: 0}
+  rightHandRotation: {x: 0, y: 0, z: 0, w: 0}
+  head: {fileID: 6312827651063720990}
+  body: {fileID: 6312827649894563510}
+  leftHand: {fileID: 6312827650343503711}
+  rightHand: {fileID: 6312827650604227725}
 --- !u!114 &6312827651802245766
 MonoBehaviour:
   m_ObjectHideFlags: 0

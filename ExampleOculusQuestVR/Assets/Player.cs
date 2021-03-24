@@ -9,11 +9,20 @@ public class Player : MonoBehaviour
     public Transform playSpace;
     public enum LOCOMODE { FLYING, DRIVING, TELEPORTING }
     public LOCOMODE movementTechnique;
+
+    public GameObject desktopCamera;
+    
     // Start is called before the first frame update
     bool rightTeleporterActive = false;
     void Start()
     {
-        
+        if(Application.platform == RuntimePlatform.Android){
+            desktopCamera.SetActive(false);
+           
+
+        }else{
+            
+        }
     }
 
     
