@@ -10,9 +10,11 @@ public class NetworkPlayer : MonoBehaviourPun, IPunObservable
 
     public Vector3 leftHandPosition;
     public Quaternion leftHandRotation;
+    public bool leftHandGrabbing;
 
      public Vector3 rightHandPosition;
     public Quaternion rightHandRotation;
+    public bool rightHandGrabbing;
 
     Player myController;
     public Transform head;
@@ -56,6 +58,8 @@ public class NetworkPlayer : MonoBehaviourPun, IPunObservable
             leftHandRotation = leftHand.rotation;
             rightHandPosition = rightHand.position;
             rightHandRotation = rightHand.rotation;
+            leftHandGrabbing = myController.leftHand.handGraphics.gameObject.activeSelf;
+            rightHandGrabbing = myController.rightHand.handGraphics.gameObject.activeSelf;
 
         }else{
             head.position = Vector3.Lerp(head.position,headPosition,.05f);
@@ -66,6 +70,9 @@ public class NetworkPlayer : MonoBehaviourPun, IPunObservable
 
             rightHand.position = Vector3.Lerp(rightHand.position,rightHandPosition,.05f);
             rightHand.rotation = Quaternion.Slerp(rightHand.rotation,rightHandRotation,.05f);
+
+            leftHand.gameObject.SetActive(leftHandGrabbing);
+            rightHand.gameObject.SetActive(rightHandGrabbing);
         }
         
     }
@@ -83,5 +90,7 @@ public class NetworkPlayer : MonoBehaviourPun, IPunObservable
         stream.Serialize(ref leftHandRotation);
         stream.Serialize(ref rightHandPosition);
         stream.Serialize(ref rightHandRotation);
+        stream.Serialize(ref leftHandGrabbing);
+        stream.Serialize(ref rightHandGrabbing);
     }
 }

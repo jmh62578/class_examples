@@ -643,8 +643,10 @@ MonoBehaviour:
   headRotation: {x: 0, y: 0, z: 0, w: 0}
   leftHandPosition: {x: 0, y: 0, z: 0}
   leftHandRotation: {x: 0, y: 0, z: 0, w: 0}
+  leftHandGrabbing: 0
   rightHandPosition: {x: 0, y: 0, z: 0}
   rightHandRotation: {x: 0, y: 0, z: 0, w: 0}
+  rightHandGrabbing: 0
   head: {fileID: 6312827651063720990}
   body: {fileID: 6312827649894563510}
   leftHand: {fileID: 6312827650343503711}

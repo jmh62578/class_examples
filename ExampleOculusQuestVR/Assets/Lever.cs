@@ -31,9 +31,9 @@ public class Lever : Grabbable
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
     }
 
 	private void FixedUpdate()

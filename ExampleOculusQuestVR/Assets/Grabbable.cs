@@ -9,24 +9,25 @@ public class Grabbable : MonoBehaviourPun, IPunObservable
     protected Transform follow;
     protected Rigidbody rb;
 
-    Vector3 networkPosition;
-    Quaternion networkRotation;
-    Vector3 networkVelocity;
-    Vector3 networkAngularVelocity;
-    bool networkUseGravity;
+    Vector3 networkPosition = Vector3.zero;
+    Quaternion networkRotation = Quaternion.identity;
+    Vector3 networkVelocity = Vector3.zero;
+    Vector3 networkAngularVelocity = Vector3.zero;
+    bool networkUseGravity = true;
     // Start is called before the first frame update
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = Mathf.Infinity;
-
+        networkPosition = transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
 		if (photonView.IsMine)
 		{
+            rb.isKinematic = false;
             networkPosition = rb.position;
             networkRotation = rb.rotation;
             networkVelocity = rb.velocity;
@@ -35,6 +36,7 @@ public class Grabbable : MonoBehaviourPun, IPunObservable
 		}
 		else
 		{
+            //rb.isKinematic = true;
             if(follow != null)
 			{
                 release();
@@ -86,6 +88,7 @@ public class Grabbable : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        
         stream.Serialize(ref networkPosition);
         stream.Serialize(ref networkRotation);
         stream.Serialize(ref networkVelocity);

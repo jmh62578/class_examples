@@ -9,7 +9,7 @@ public class Hand : WorldMouse
     Rigidbody rb;
     public enum HAND_SIDE { LEFT, RIGHT }
     public HAND_SIDE side;
-    Grabbable grabbed=null;
+    public Grabbable grabbed=null;
     OVRInput.Controller myHand;
     public float gripAtPercentage;
     public float releaseAtPercentage;
@@ -25,6 +25,9 @@ public class Hand : WorldMouse
     public GameObject teleporterTarget;
     List<GameObject> teleporterPoints = new List<GameObject>();
     public int maxTeleporterPoints = 50;
+
+    public float gogoDistance = .7f; //should be a user setting. 
+    public float gogoScaling = 2; //linear scale of 2 after gogoDistance.  
     // Start is called before the first frame update
     void Awake()
     {
@@ -189,7 +192,17 @@ public class Hand : WorldMouse
 	}
 	private void FixedUpdate()
 	{
-        Vector3 between = follow.position - rb.position;
+
+        Vector3 headToHand = follow.position - player.head.position;
+        float headToHandDist = headToHand.magnitude;
+        Vector3 followLocation = player.head.position + headToHand;
+        if(headToHandDist > gogoDistance){
+            float deltaGogo = headToHandDist - gogoDistance;
+            float addedDistance = deltaGogo*gogoScaling;
+            followLocation = player.head.position + headToHand.normalized * (gogoDistance + addedDistance); 
+        }
+
+        Vector3 between = followLocation - rb.position;
         rb.velocity = between / Time.deltaTime;
 
         Quaternion betweenRot = follow.rotation * Quaternion.Inverse(rb.rotation);
