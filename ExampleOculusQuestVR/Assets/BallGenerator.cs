@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using OVR;
 using System;
+using Photon.Pun;
 public class BallGenerator : MonoBehaviour
 {
     public GameObject ballPrefab;
@@ -15,11 +16,9 @@ public class BallGenerator : MonoBehaviour
 
     public void drop_ball()
 	{
-        Instantiate<GameObject>(
-                ballPrefab,
-                this.transform.position,
-                this.transform.rotation,
-                this.transform);
+        PhotonNetwork.Instantiate("ball", this.transform.position,
+                this.transform.rotation);
+        
     }
 
     // Update is called once per frame

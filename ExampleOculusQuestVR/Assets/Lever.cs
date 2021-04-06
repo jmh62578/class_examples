@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
+
 public class Lever : Grabbable
 {
     public float activateDegree;
@@ -16,8 +18,16 @@ public class Lever : Grabbable
     // Start is called before the first frame update
     public override void Start()
     {
-        leverPulled += generator.drop_ball;
+
+        leverPulled += doPullLever;
         base.Start();
+    }
+
+    public void doPullLever()
+	{
+        if (this.photonView.IsMine) {
+            generator.drop_ball();
+        };
     }
 
     // Update is called once per frame
@@ -54,4 +64,18 @@ public class Lever : Grabbable
 		}
 
 	}
+
+	//public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	//{
+	//	base.OnPhotonSerializeView(stream, info);
+	//	//if (photonView.IsMine)
+	//	//{
+
+ // //          stream.SendNext(rb.GetComponent<HingeJoint>().angle);
+	//	//}
+	//	//else
+	//	//{
+ // //          rb.GetComponent<HingeJoint>().angle = (float) stream.ReceiveNext();
+	//	//}
+	//}
 }
