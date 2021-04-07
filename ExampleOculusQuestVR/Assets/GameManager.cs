@@ -27,4 +27,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(time);
 		}
 	}
+
+    public void handleGogoSliderChange(float v){
+        player.setGogoScaling(v);
+    }
 }

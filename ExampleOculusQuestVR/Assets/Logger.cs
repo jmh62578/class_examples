@@ -12,6 +12,9 @@ public class Logger : MonoBehaviour
     }
     public static void log(string text){
         logger.debugText.text = text + "\n" + logger.debugText.text;
+        if(logger.debugText.text.Length > 5000){
+            logger.debugText.text = logger.debugText.text.Substring(0,2500);
+        }
         Debug.Log(text);
     }
 }

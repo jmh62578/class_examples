@@ -52,6 +52,11 @@ public class Player : MonoBehaviour
         teleport(saveFootPos);
 	}
 
+    public void setGogoScaling(float v){
+        leftHand.gogoScaling = v;
+        rightHand.gogoScaling = v;
+    }
+
     // Update is called once per frame
     void Update()
     {

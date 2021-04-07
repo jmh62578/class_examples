@@ -14,6 +14,8 @@ public class Grabbable : MonoBehaviourPun, IPunObservable
     Vector3 networkVelocity = Vector3.zero;
     Vector3 networkAngularVelocity = Vector3.zero;
     bool networkUseGravity = true;
+
+    public bool useExact = false;
     // Start is called before the first frame update
     public virtual void Start()
     {

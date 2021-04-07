@@ -72,7 +72,7 @@ public class WorldMouseInputModule : BaseInputModule
 		{
 			WorldMouse wm = worldMice[i];
 			
-			wm.rayDistance = 0.0f;//assume nothing was hit to start
+			wm.rayDistance = Mathf.Infinity;//assume nothing was hit to start
 			
 			//this makes the event system camera align with the world mouse
 			worldMouseCam.transform.position = wm.transform.position;

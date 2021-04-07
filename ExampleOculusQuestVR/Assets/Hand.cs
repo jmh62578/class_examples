@@ -5,6 +5,7 @@ using OVR;
 [RequireComponent(typeof(Rigidbody))]
 public class Hand : WorldMouse
 {
+    public Transform grabOffset;
     public Transform follow;
     Rigidbody rb;
     public enum HAND_SIDE { LEFT, RIGHT }
@@ -51,14 +52,17 @@ public class Hand : WorldMouse
     // Update is called once per frame
     protected override void Update()
     {
+        laser.SetActive(false);
         worldRayDistance = Mathf.Infinity;
         RaycastHit hit;
         if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit))
         {
+            
             worldRayDistance = hit.distance;
             worldHitPoint = hit.point;
             textureHitPoint = hit.textureCoord;
             hitCollider = hit.collider;
+            Logger.log("worldDist = " + worldRayDistance);
             if (hit.collider.attachedRigidbody != null)
             {
                 hitGo = hit.collider.attachedRigidbody.gameObject;
@@ -74,11 +78,12 @@ public class Hand : WorldMouse
         }
         
         float laserDistance = Mathf.Min(worldRayDistance, rayDistance);
-        if(laserDistance < Mathf.Infinity)
+        if(((worldRayDistance < rayDistance) && (hitGo.GetComponent<Grabbable>()!=null)) || (rayDistance < worldRayDistance))
 		{
             laser.SetActive(true);
+            laser.transform.localScale = new Vector3(1, 1, laserDistance);
 		}
-        laser.transform.localScale = new Vector3(1, 1, laserDistance);
+        
 
         float handTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, myHand);
         if (handTrigger < releaseAtPercentage && grabbed != null)
@@ -233,7 +238,13 @@ public class Hand : WorldMouse
             grabbed = g;
             handGraphics.SetActive(false);
             Logger.log("grabbed "+this.follow.name);
-            g.grab(this.follow);
+            grabOffset.transform.position = g.transform.position;
+            grabOffset.transform.rotation = g.transform.rotation;
+            if(g.useExact){
+                g.grab(grabOffset);
+            }else{
+                g.grab(rb.transform);
+            }
             
 		}
 	}
